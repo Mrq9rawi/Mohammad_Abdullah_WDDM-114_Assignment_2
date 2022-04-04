@@ -1,4 +1,5 @@
-let currentImage = 1;
+// Current Slide Variable
+let currentSlide = 1;
 
 // Get All Elements
 const slides = document.getElementsByClassName("slide");
@@ -6,40 +7,51 @@ const dots = document.querySelectorAll(".circles [class*='circle']");
 const leftArrow = document.querySelector(".left");
 const rightArrow = document.querySelector(".right");
 
-slideShow(currentImage);
+// Call Function To Show First Slide
+slideShow(currentSlide);
 
-
+// Left Arrow On Click Function
 leftArrow.addEventListener("click", () => {
 	changeSlide(-1);
 });
 
+// Right Arrow On Click Function
 rightArrow.addEventListener("click", () => {
 	changeSlide(1);
 });
 
+// Arrows Function
 function changeSlide(n) {
-	slideShow(currentImage += n);
+	slideShow(currentSlide += n);
 }
 
+// Dots Function
 dots.forEach((dot, i) => {
 	dot.addEventListener("click", () => {
-		slideShow(currentImage = i + 1);
-		for (let i = 0; i < dots.length; i++) {
-			dots[i].classList.replace("fa-solid", "fa-regular");
-		}
-		dot.classList.add("fa-solid");
+		slideShow(currentSlide = i + 1);
+		dots[i].classList.replace("fa-solid", "fa-regular");
+		dots[currentSlide - 1].classList.add("fa-solid");
 	});
 });
 
+// Slide Show Function
 function slideShow(n) {
+	// Reset Variable
+	if (n < 1) { currentSlide = slides.length; };
+	if (n > slides.length) { currentSlide = 1; };
 
-	if (n < 1) { currentImage = slides.length; };
-	if (n > slides.length) { currentImage = 1; };
-
+	// Make All Slides Display None
 	for (let i = 0; i < slides.length; i++) {
 		slides[i].style.display = "none";
 	}
 
-	slides[currentImage - 1].style.display = "block";
+	// Show Current Slide
+	slides[currentSlide - 1].style.display = "block";
+
+	// Adjust Dots
+	dots.forEach((dot, i) => {
+		dots[i].classList.replace("fa-solid", "fa-regular");
+		dots[currentSlide - 1].classList.add("fa-solid");
+	});
 }
 
