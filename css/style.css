@@ -82,6 +82,6 @@
 	transition: var(--main-transition);
 }
 
-.container .circles i:hover{
+.container .circles i:hover {
 	color: var(--main-orange-color);
 }
